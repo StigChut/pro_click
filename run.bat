@@ -15,7 +15,7 @@ if not exist ".venv\Scripts\activate" (
     pip install -r requirements.txt
 
     REM Цикл для запуска main.py 3 раза
-    for /l %%x in (1, 1, 3) do (
+    for /l %%x in (1, 1, 4) do (
     REM Очистка консоли перед третьим запуском
     if %%x==3 cls
     echo Run main.py %%x iter --
