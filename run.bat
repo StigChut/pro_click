@@ -13,12 +13,22 @@ if not exist ".venv\Scripts\activate" (
 
     REM Устанавливаем зависимости из requirements.txt
     pip install -r requirements.txt
+
+    REM Цикл для запуска main.py 3 раза
+    for /l %%x in (1, 1, 3) do (
+    REM Очистка консоли перед третьим запуском
+    if %%x==3 cls
+    echo Run main.py %%x iter --
+    python main.py
+    echo --------------------------------------
+    )
+
 ) else (
     REM Активируем существующее виртуальное окружение
     call .venv\Scripts\activate
 )
 
-REM Запускаем Python-скрипт
+REM Запуск main.py
 python main.py
 
 REM Пауза, чтобы окно не закрылось автоматически
