@@ -17,11 +17,10 @@ if not exist ".venv\Scripts\activate" (
     REM Цикл для запуска main.py 3 раза
     for /l %%x in (1, 1, 4) do (
     REM Очистка консоли перед третьим запуском
-    if %%x==4 cls
+    if %%x==4 exit
     echo Run main.py %%x iter --
     python main.py
     echo --------------------------------------
-    exit
     )
 
 
