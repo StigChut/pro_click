@@ -96,10 +96,7 @@ def active_window():
         print("Eсли верно нажми Y, если нет N: ")
         # Пользовательский ввод
         user_input = safe_input().upper().strip()
-        
-        # Пользовательский ввод
-        user_input = input("Eсли верно нажми Y, если нет N: ").strip().upper()
-        
+
         # Условия ввода
         if user_input == "Y":
                 # Делаем словарь
