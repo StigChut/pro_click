@@ -30,15 +30,15 @@ def default_state(title: str):
         raise
 
 
-# TODO: Перемещение курсора в область after_bt1_click2 после bt1
+# TODO: Перемещение курсора в область image_for_moveCur после bt1
 def move_cur(title):
     try:
         # Относительный путь к изображению
-        image_path = os.path.join(BASE_DIR, 'image_button', 'after_bt1_click2.png')
+        image_path = os.path.join(BASE_DIR, 'image_button', 'image_for_moveCur.png')
         assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
 
         # Определяем изображение
-        image = pyautogui.locateOnWindow(image_path, title, confidence=0.8)
+        image = pyautogui.locateOnWindow(image_path, title, confidence=0.5)
 
         # Проверяем, что изображение найдено
         if image is None:

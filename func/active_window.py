@@ -1,9 +1,11 @@
 import pygetwindow
 import json
+import time
 import os
 
 from pynput import mouse
 from my_logger import logger
+from app.tools import safe_input
 
 FILE = 'temp.json'
 
@@ -80,6 +82,7 @@ def active_window():
         with mouse.Listener(on_click=on_click) as listener:
             listener.join()
 
+        time.sleep(0.2)
         # Получение активного окна
         window = pygetwindow.getActiveWindow()
         
@@ -88,11 +91,12 @@ def active_window():
             print("Активное окно отсутствует")
             logger.debug("Активное окно отсутствует")
             return
+        
         print(f"Активное окно: {window.title}")
-        
+        print("Eсли верно нажми Y, если нет N: ")
         # Пользовательский ввод
-        user_input = input("Eсли верно нажми Y, если нет N: ").strip().upper()
-        
+        user_input = safe_input().upper().strip()
+
         # Условия ввода
         if user_input == "Y":
                 # Делаем словарь
