@@ -17,7 +17,7 @@ if not exist ".venv\Scripts\activate" (
 
     REM Цикл для запуска main.py 2 раза
     for /l %%x in (1, 1, 2) do (
-        echo Запуск main.py, итерация %%x...
+        echo Run main.py, iterations %%x...
         python main.py
         echo --------------------------------------
 
