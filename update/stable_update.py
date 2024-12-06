@@ -6,7 +6,7 @@ import sys
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # Папка, где лежит update.py
 BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))  # Путь к корню репозитория
 REPO_URL = "https://github.com/StigChut/pro_click.git"   # URL публичного репозитория
-BRANCH = "stable"  # Ваша ветка: main, master или другая
+BRANCH = "dev"  # Ваша ветка: main, master или другая
 
 # **Функции**
 

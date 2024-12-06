@@ -165,6 +165,7 @@ def logical_workflow():
                     )
 
                     if alert_status == "success":
+                        """
                         app.tools.safe_execute(
                             push_service.messge_handler.push_message,
                             "Пуш в ТГ - ДА",
@@ -173,6 +174,7 @@ def logical_workflow():
                             GREEN_MESSAGE,
                             magazine_and_sklad
                         )
+                        """
                         exited_by_success = True
                         break
                     
@@ -184,6 +186,7 @@ def logical_workflow():
 
         # Выполняется только если выход из цикла не по "success"
         if not exited_by_success:
+            """
             print("Поиск слотов остановлен - ДА")
             app.tools.safe_execute(
                 push_service.messge_handler.push_message,
@@ -193,7 +196,7 @@ def logical_workflow():
                 STOP_MESSAGE,
                 magazine_and_sklad
             )
-
+            """
     except Exception as e:
         app.tools.safe_execute(
             push_service.messge_handler.push_message,
