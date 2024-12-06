@@ -3,6 +3,7 @@ import telebot
 from push_service.config import tg_token
 from push_service.config import chat_id, alert_slot
 from func.active_window import save_file
+from app.tools import safe_input
 from my_logger import logger
 
 
@@ -19,7 +20,9 @@ def user_login():
     try:
         # Окно приветствия \ Пользовательский ввод
         print("Введи свой username в ТГ.(Пример: https://t.me/yesimfine_thanks)")
-        user_input = input("Enter username:").strip()
+
+        user_input = safe_input().strip()
+
         logger.debug(f"Пользователь ввел: {user_input}")
 
         # Преобразование 

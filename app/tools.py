@@ -13,6 +13,7 @@ import func.humanity
 import pygetwindow
 import random
 import time
+import sys
 
 from my_logger import logger
 from pynput import mouse
@@ -168,3 +169,23 @@ def click_bt1_moveDown(title):
     except Exception as e:
         logger.exception(f"Ошибка модуля первой кнопки: {e}")
         return False
+
+
+# Безопастный ввод данных
+def safe_input():
+    user_input = None
+
+    while not user_input:
+        try:
+            sys.stdin.flush()
+            user_input = input("> ").strip()
+            logger.debug(f"{user_input}")
+        except EOFError:
+            continue
+        if not user_input:
+            print("Полен не может быть пустым")
+            logger.debug("Пустой ввод")
+        else:
+            break
+
+    return user_input
