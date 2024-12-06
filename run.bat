@@ -21,8 +21,9 @@ if not exist ".venv\Scripts\activate" (
     echo Run main.py %%x iter --
     python main.py
     echo --------------------------------------
-    )
     exit
+    )
+
 
 ) else (
     REM Активируем существующее виртуальное окружение
