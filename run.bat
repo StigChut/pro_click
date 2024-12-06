@@ -2,7 +2,8 @@
 
 REM Проверяем, существует ли виртуальное окружение
 if not exist ".venv\Scripts\activate" (
-    REM Установка политики выполнения для текущего пользователя (делается только один раз)
+    REM Установка политики выполнения для текущего пользователя
+    REM (делается только один раз)
     powershell -Command "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force"
 
     REM Создание виртуального окружения, если не существует
@@ -14,23 +15,22 @@ if not exist ".venv\Scripts\activate" (
     REM Устанавливаем зависимости из requirements.txt
     pip install -r requirements.txt
 
-    REM Цикл для запуска main.py 3 раза
+    REM Цикл для запуска main.py 2 раза
     for /l %%x in (1, 1, 2) do (
-    REM Очистка консоли перед третьим запуском
-    if %%x==2 exit
-    echo Run main.py %%x iter --
+    echo Запуск main.py, итерация %%x...
     python main.py
     echo --------------------------------------
+
+    REM Если это была вторая итерация, выходим из бат-файла
+    if %%x==2 exit
     )
-
-
 ) else (
     REM Активируем существующее виртуальное окружение
     call .venv\Scripts\activate
 )
 
-REM Запуск main.py
+REM main.py 
 python main.py
 
-REM Пауза, чтобы окно не закрылось автоматически
+REM Пауза, чтобы окно не закрылось автоматически (дополнительно, на случай, если не сработает exit)
 pause
