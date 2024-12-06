@@ -1,5 +1,8 @@
 # Мои исключения
 temp.json
+local_main.py
+local_run.bat
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
