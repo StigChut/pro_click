@@ -23,6 +23,9 @@ def find_button_bt1(title: str):
         else:
             logger.debug("Кнопка 'Запланировать поставку' не нажата")
             return False
+        
+    except pyautogui.ImageNotFoundException:
+        pass
     except Exception as e:
         logger.exception(f"Ошибка нажатия bt1: {e}")
         raise
