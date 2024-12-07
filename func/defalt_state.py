@@ -60,6 +60,7 @@ def move_cur(title):
         return True
     
     except pyautogui.useImageNotFoundException(False):
+        logger.debug(f"Ошибка поиска изображения. Пропуск исключения")
         pass
 
     except Exception as e:
