@@ -157,11 +157,7 @@ def click_bt1_moveDown(title):
         if func.find_buttons.find_button_bt1(title):
             time.sleep(0.1)
             # Перемещение курсора
-            if func.defalt_state.move_cur(title):
-                return True
-            else:
-                logger.debug(f"Ошибка перемещения курсора")
-                return False
+            func.defalt_state.move_cur(title)
         else:
             logger.debug(f"Ошибка нажатия первой кнопки")
             return False
@@ -169,6 +165,8 @@ def click_bt1_moveDown(title):
     except Exception as e:
         logger.exception(f"Ошибка модуля первой кнопки: {e}")
         return False
+    
+    return True
 
 
 # Безопастный ввод данных

@@ -59,9 +59,9 @@ def move_cur(title):
         logger.debug(f"Курсор перемещен в координаты {center_x}, {center_y}")
         return True
     
-    except pyautogui.useImageNotFoundException(False):
+    except pyautogui.ImageNotFoundException:
         logger.debug(f"Ошибка поиска изображения. Пропуск исключения")
-        pass
+        return False
 
     except Exception as e:
         logger.exception(f"Ошибка перемещения курсора после bt1: {e}")
