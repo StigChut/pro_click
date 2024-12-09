@@ -40,7 +40,7 @@ def red_alert_time_date(image_path, title: str):
             logger.debug("Алерт обнаружен и закрыт")
             return True
         else:
-            logger.debug("Алерт не обниружен или не закрыт")
+            logger.debug("Алерт не обнаружен или не закрыт")
             return False
 
     except Exception as e:

@@ -143,7 +143,8 @@ def logical_workflow_booking():
                 func.find_buttons.find_button_bt2,
                 "Выбрать - ДА",
                 "Выбрать - НЕТ",
-                title
+                title,
+                mode="booking"
             ):
                 continue
             

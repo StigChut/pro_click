@@ -31,7 +31,7 @@ def alert_handler(image_bt3, title):
             # Негативный результат
             elif func.negative_result.red_alert_time_date(image_alert, title):
                 logger.debug("Выбрали туже дату, начинам искать ниже")
-                func.swith_bt2.swith_bt2_down(image_bt3, image_alert, title):
+                func.swith_bt2.swith_bt2_down(image_bt3, image_alert, title)
                 logger.info("Посмотрели все кнопки 'Выбрать' ниже")
                 time.sleep(1)
                 return "repeat"

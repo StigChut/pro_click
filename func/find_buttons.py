@@ -27,16 +27,28 @@ def find_button_bt1(image_path, title: str):
 
 
 # Поиск кнопки "Выбрать"
-def find_button_bt2(title: str):
+def find_button_bt2(title: str, mode=["booking", "transfer"]):
+    """
+    Функция для поиска кнопки "Выбрать"
+    param: mode - booking - бронирование, transfer - перенос
+    """
+
     # Относительный путь к изображению
     image_path = os.path.join(BASE_DIR, 'image_button', 'bt2.png')
     assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
 
-    # Глубина прокрутки
-    depth_scroll = random.randint(-700, -400)
-    # Счетчики цикла 
+    if mode == "booking":
+        # Глубина прокрутки
+        depth_scroll = random.randint(-700, -400)
+        # Счетчики цикла 
+        max_scroll = random.randint(2, 8)
+    elif mode == "transfer":
+        # Глубина прокрутки
+        depth_scroll = -500
+        # Счетчики цикла 
+        max_scroll = 2
+
     scroll_iter = 0
-    max_scroll = random.randint(2, 8)
 
     try:
         # Основной цикл
