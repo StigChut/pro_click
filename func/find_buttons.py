@@ -9,11 +9,8 @@ from my_logger import logger, BASE_DIR
 from func.image_screen import find_and_interact
 
 
-# Поиск конпки "запланировать поставку"
-def find_button_bt1(title: str):
-    # Относительный путь к изображению
-    image_path = os.path.join(BASE_DIR, 'image_button', 'bt1.png')
-    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+def find_button_bt1(image_path, title: str):
+    """ Поиск первой кнопки в итерации """
 
     try:
         # Ищем первую кнопку "bt1"
@@ -68,11 +65,8 @@ def find_button_bt2(title: str):
 
 
 
-# Поиск кнопки "Запланировать"
-def find_button_bt3(title: str):
-    # Относительный путь к изображению
-    image_path = os.path.join(BASE_DIR, 'image_button', 'bt3.png')
-    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+def find_button_bt3(image_path, title: str):
+    """ Поиск третьей кнопки в итерации """
     
     try:
         # Ищем третью кнопку bt3

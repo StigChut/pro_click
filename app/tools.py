@@ -14,8 +14,9 @@ import pygetwindow
 import random
 import time
 import sys
+import os
 
-from my_logger import logger
+from my_logger import logger, BASE_DIR
 from pynput import mouse
 
 
@@ -94,7 +95,10 @@ def chek_window(title):
 
 
 # Проверка состояния дефолтноего положения
-def chek_default_satate(title):
+def booking_default_satate(title):
+    # Относительный путь к изображению
+    image_path = os.path.join(BASE_DIR, 'image_button', 'default_state.png')
+    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
     
     max_iter = 2
     coint_iter = 0
@@ -102,7 +106,7 @@ def chek_default_satate(title):
     try:
         while coint_iter < max_iter:
 
-            if func.defalt_state.default_state(title) == False:
+            if func.defalt_state.default_state(image_path, title) == False:
                 coint_iter += 1
                 continue
             else:
@@ -152,9 +156,13 @@ def random_second_screen(title):
 
 # Нажитие первой кнопки и перемещение курсора вниз
 def click_bt1_moveDown(title):
+    # Относительный путь к изображению
+    image_path = os.path.join(BASE_DIR, 'image_button', 'bt1.png')
+    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+
     try:
         # Проверка первой кнопки
-        if func.find_buttons.find_button_bt1(title):
+        if func.find_buttons.find_button_bt1(image_path, title):
             time.sleep(0.1)
             # Перемещение курсора
             func.defalt_state.move_cur(title)

@@ -1,16 +1,13 @@
 #!D:\Case\00.Junk_Code_Py\LickClick\.venv\Scripts\python.exe
 import app.choice_user
 import app.choice_window
-import app.main_logical
-import update.stable_update
+import app.booking_logical
 
 from my_logger import logger
 
 
 def main():
     try:
-        update.stable_update.check_and_update()
-
         import keyboard
         # Отображение инструкций
         print(
@@ -24,7 +21,7 @@ def main():
         # Привязка горячих клавиш
         keyboard.add_hotkey('shift+q', app.choice_user.app_choise_user)
         keyboard.add_hotkey('shift+a', app.choice_window.app_choise_window)
-        keyboard.add_hotkey('alt+w', app.main_logical.logical_workflow)
+        keyboard.add_hotkey('alt+w', app.booking_logical.logical_workflow_booking)
         
         # Ожидание нажатий клавиш
         keyboard.wait()

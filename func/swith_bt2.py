@@ -16,8 +16,12 @@ from func.negative_result import red_alert_time_date
 from func.find_buttons import find_button_bt3
 
 
-# Повторный поиск кнопки "Выбрать", ниже текущей
-def swith_bt2_down(title: str):
+def swith_bt2_down(image_path_bt3, image_path_alert, title: str):
+    """
+    Повторный поиск кнопки "Выбрать", ниже текущей
+    param: image_path_bt3 - для функции find_bt3 - передать "Запланировать" или "Перенести"
+    param: image_path_alert - алерт после которого ищем кнопку выбрать ниже
+    """
     # Относительный путь к изображению
     image_path_bt2 = os.path.join(BASE_DIR, 'image_button', 'bt2.png')
     assert os.path.exists(image_path_bt2), f"Файл не найден по указанному пути: {image_path_bt2}"
@@ -65,7 +69,7 @@ def swith_bt2_down(title: str):
                     logger.debug(f"Текущая координата {current_y}")
 
                     # Нажимаем "Запланировать"
-                    if find_button_bt3(title) == True and red_alert_time_date(title) == False:
+                    if find_button_bt3(image_path_bt3, title) == True and red_alert_time_date(image_path_alert, title) == False:
                         time.sleep(3)
                         break
                             
