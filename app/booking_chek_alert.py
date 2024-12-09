@@ -1,5 +1,5 @@
-import time
 import os
+import time
 
 import func.positive_result
 import func.negative_result
@@ -48,7 +48,7 @@ def alert_handler(image_bt3, title):
                 return "error"
             
             elif func.negative_result.red_alert_clone_error(title):
-                logger.info("Ошибка базы данных ВБ. Выход из скрипта")
+                logger.info("Ошибка фунции. Выход из скрипта")
                 time.sleep(1)
                 return "error"
             

@@ -94,10 +94,37 @@ def chek_window(title):
         return False
 
 
-# Проверка состояния дефолтноего положения
+# Проверка дефолтноего положения при Бронировании
 def booking_default_satate(title):
     # Относительный путь к изображению
     image_path = os.path.join(BASE_DIR, 'image_button', 'default_state.png')
+    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+    
+    max_iter = 2
+    coint_iter = 0
+
+    try:
+        while coint_iter < max_iter:
+
+            if func.defalt_state.default_state(image_path, title) == False:
+                coint_iter += 1
+                continue
+            else:
+                return True
+
+        logger.debug("Не смогли найти дефолтное состояние за 2 перезагрузки")
+        print("Не найдена стратовая точка")
+        return False
+    
+    except Exception as e:
+        logger.exception(f"Ошибка: {e}")
+        return False
+    
+
+# Проверка дефолтного положение при Переносе
+def transfer_default_state(title):
+    # Относительный путь к изображению
+    image_path = os.path.join(BASE_DIR, 'image_button', 'transfer_default_state.png')
     assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
     
     max_iter = 2
