@@ -12,7 +12,7 @@ from func.image_screen import find_and_interact
 # Поиск изображения на главном экране и рандомный клик на него
 def occasional_click_main_screen(title: str):
     # Относительный путь к изображениям
-    path_main_screen_click = os.path.join(BASE_DIR, 'image_button', 'main_screen_click.png')
+    path_main_screen_click = os.path.join(BASE_DIR, 'image_button', 'main_screen_clic_new.png')
     assert os.path.exists(path_main_screen_click), f"Файл не найден по указанному пути: {path_main_screen_click}"
     try:
         # Ищем изображение на главном экране
