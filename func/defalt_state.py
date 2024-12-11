@@ -14,7 +14,7 @@ from func.image_screen import find_and_interact
 # Поиск стартового полежения на экране для того чтобы начать выполение скрипта
 def default_state(title: str):
     # Относительный путь к изображению
-    image_path = os.path.join(BASE_DIR, 'image_button', 'default_state.png')
+    image_path = os.path.join(BASE_DIR, 'image_button', 'default_state_new.png')
     assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
 
     try:
