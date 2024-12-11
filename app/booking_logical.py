@@ -76,7 +76,8 @@ def logical_workflow_booking():
     magazine_and_sklad = app.tools.safe_execute(
         app.tools.save_data_slot,
         "Описание итерации - ДА",
-        "Описание итерации - НЕТ"
+        "Описание итерации - НЕТ",
+        mode = 'booking'
     )
 
     try:
@@ -122,7 +123,8 @@ def logical_workflow_booking():
                 app.tools.click_bt1_moveDown,
                 "Запланировать поставку - ДА",
                 "Запланировать поставку - НЕТ",
-                title
+                title,
+                mode = "booking"
             ):
                 break
             
@@ -144,7 +146,7 @@ def logical_workflow_booking():
                 "Выбрать - ДА",
                 "Выбрать - НЕТ",
                 title,
-                mode="booking"
+                mode = "booking"
             ):
                 continue
             

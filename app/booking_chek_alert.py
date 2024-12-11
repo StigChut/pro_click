@@ -40,7 +40,12 @@ def alert_handler(image_bt3, title):
                 func.swith_bt2.swith_bt2_down(image_bt3, image_alert, title)
                 logger.info("Просмотрели все кнопки 'Выбрать' ниже")
                 time.sleep(1)
-                return "repeat"
+                if func.positive_result.green_alert(image_green, title) or func.positive_result.button_trasfer(title):
+                    logger.info("Слот забронирован")
+                    time.sleep(1)
+                    return "success"
+                else:
+                    return "repeat"
             
             elif func.negative_result.red_alert_error_bd(title):
                 logger.info("Ошибка базы данных ВБ. Выход из скрипта")

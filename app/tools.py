@@ -53,10 +53,17 @@ def wait_random_delay(min_delay=0.1, max_delay=0.4):
 
 
 # Выбор магазина и склада
-def save_data_slot():
+def save_data_slot(mode = ['booking', 'transfer']):
     try:
-        magazine = input("Название магазина в котором ищем слот: ").strip()
-        skald = input("Название склада для которого ищем слот: ").strip()
+        if mode == 'booking':
+            magazine = input("Название магазина в котором ищем слот: ").strip()
+            skald = input("Название склада для которого ищем слот: ").strip()
+        elif mode == 'transfer':
+            magazine = input("Название магазина в котором переносим слот: ").strip()
+            skald = input("Название склада для которого переносим слот: ").strip()
+        else:
+            logger.debug("Не определен 'mode' для фукции")
+            return None
 
         result = f"{skald}, в {magazine}"
 
@@ -182,10 +189,16 @@ def random_second_screen(title):
 
 
 # Нажитие первой кнопки и перемещение курсора вниз
-def click_bt1_moveDown(title):
-    # Относительный путь к изображению
-    image_path = os.path.join(BASE_DIR, 'image_button', 'bt1.png')
-    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+def click_bt1_moveDown(title, mode=['booking', 'transfer']):
+    
+    if mode == 'booking':
+        # Относительный путь к изображению
+        image_path = os.path.join(BASE_DIR, 'image_button', 'bt1.png')
+        assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+    elif mode == 'transfer':
+        # Относительный путь к изображению
+        image_path = os.path.join(BASE_DIR, 'image_button', 'transfer_bt1.png')
+        assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
 
     try:
         # Проверка первой кнопки

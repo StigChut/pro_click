@@ -72,6 +72,8 @@ def swith_bt2_down(image_path_bt3, image_path_alert, title: str):
                     if find_button_bt3(image_path_bt3, title) == True and red_alert_time_date(image_path_alert, title) == False:
                         time.sleep(3)
                         break
+                    else:
+                        continue
                             
             except pyautogui.ImageNotFoundException as e:
                 logger.debug(f"Не нашли изображение {e}")

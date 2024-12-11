@@ -16,6 +16,9 @@ def alert_handler(image_bt3, title):
     image_alert = os.path.join(BASE_DIR, 'image_button', 'transfer_red_alert_date.png')
     assert os.path.exists(image_alert),  f"Файл не найден по указанному пути: {image_alert}"
 
+    image_alert_date = os.path.join(BASE_DIR, 'image_button', 'red_alert_time.png')
+    assert os.path.exists(image_alert_date), f"Файл не найден по указанному пути: {image_alert_date}"
+
     alert_timeout = 15
     start_time = time.time()
 
@@ -28,13 +31,24 @@ def alert_handler(image_bt3, title):
                 time.sleep(1)
                 return "success"
             
-            # Негативный результат
+            # Негативный результат            
+            elif func.negative_result.red_alert_time_date(image_alert_date, title):
+                logger.debug("Выбрали туже дату, начинам искать ниже")
+                func.swith_bt2.swith_bt2_down(image_bt3, image_alert_date, title)
+                time.sleep(1)
+                return "repeat"
+            
             elif func.negative_result.red_alert_time_date(image_alert, title):
                 logger.debug("Выбрали туже дату, начинам искать ниже")
                 func.swith_bt2.swith_bt2_down(image_bt3, image_alert, title)
                 logger.info("Посмотрели все кнопки 'Выбрать' ниже")
                 time.sleep(1)
-                return "repeat"
+                if func.positive_result.green_alert(image_green, title):
+                    logger.info("Поставка перенесана")
+                    time.sleep(1)
+                    return "success"
+                else:
+                    return "repeat"
 
             elif func.negative_result.red_alert_error_bd(title):
                 logger.info("Ошибка базы данных ВБ. Выход из скрипта")
