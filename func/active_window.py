@@ -29,13 +29,13 @@ def save_file(data):
         with open(FILE, 'w', encoding='utf-8') as f:
             json.dump(current_data, f, ensure_ascii=False, indent=4)
         logger.debug("Данные сохранены в файл")
-    
+        return True
     except json.JSONDecodeError as e:
         logger.exception(f"Ошибка декодирования JSON в файле {FILE}: {e}")
-        
+        return False
     except Exception as e:
         logger.exception(f"Ошибка чтения активного окна: {e}")
-
+        return False
 
 # Чтение файла с сохраненным активным окном
 def read_file(key):

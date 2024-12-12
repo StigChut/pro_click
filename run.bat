@@ -30,7 +30,7 @@ if not exist ".venv\Scripts\activate" (
 )
 
 REM Запуск main.py (если окружение уже существует)
-python main.py
+python run_me.py
 
 REM Пауза, чтобы окно не закрылось автоматически (для второго и последующих запусков)
 pause
