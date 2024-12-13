@@ -8,23 +8,8 @@ from my_logger import logger
 
 def main():
     try:
-        import keyboard
-        # Отображение инструкций
-        print(
-            "Добро пожаловать в proClick!\n"
-            "'Shift + Q' - чтобы привязать свой username в ТГ, нужно для призыва в оповещениях.\n"
-            "'Shift + A' - для того чтобы привязать свой браузер и окно поиска.\n"
-            "'Alt + W' - чтобы запустить поиск слотов.\n"
-            "'Ctrl + T' - открывает новую вкладку, останавливает скрипт. Либо клик на другое окно.\n"
-        )
-        
-        # Привязка горячих клавиш
-        keyboard.add_hotkey('shift+q', app.choice_user.app_choise_user)
-        keyboard.add_hotkey('shift+a', app.choice_window.app_choise_window)
-        keyboard.add_hotkey('alt+w', app.booking_logical.logical_workflow_booking)
-        
-        # Ожидание нажатий клавиш
-        keyboard.wait()
+
+        print("Добро пожаловать. Для начала работы перезапустите программу.")
         
     except Exception as e:
         logger.error(f"Ошибка в главной функции: {e}")
