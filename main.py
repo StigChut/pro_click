@@ -14,7 +14,6 @@ def main():
     except Exception as e:
         logger.error(f"Ошибка в главной функции: {e}")
 
-
 if __name__ == '__main__':
     try:
         main()

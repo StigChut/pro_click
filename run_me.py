@@ -5,6 +5,7 @@ from ui.ui_tg_username import open_user_input_window
 from ui.ui_active_window import choose_active_window
 from ui.ui_update import run_fresh_update, run_stable_update
 from app.booking_logical import logical_workflow_booking
+from app.transfer_logical import logical_workflow_transfer
 
 # Главное окно приложения
 root = tk.Tk()
@@ -28,5 +29,9 @@ btn_fresh_up.pack(pady=20)
 # Запуск основной функции
 btn_booking = tk.Button(root, text="Запустить бронирование", command=logical_workflow_booking)
 btn_booking.pack(pady=20)
+
+btn_booking = tk.Button(root, text="Запустить перенос", command=logical_workflow_transfer)
+btn_booking.pack(pady=20)
+
 
 root.mainloop()
