@@ -33,5 +33,4 @@ btn_booking.pack(pady=20)
 btn_booking = tk.Button(root, text="Запустить перенос", command=logical_workflow_transfer)
 btn_booking.pack(pady=20)
 
-
 root.mainloop()

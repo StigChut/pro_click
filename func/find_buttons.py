@@ -44,7 +44,7 @@ def find_button_bt2(title: str, mode=["booking", "transfer"]):
         max_scroll = random.randint(2, 8)
     elif mode == "transfer":
         # Глубина прокрутки
-        depth_scroll = -500
+        depth_scroll = -400
         # Счетчики цикла 
         max_scroll = 2
 
