@@ -63,6 +63,7 @@ def check_fresh_update():
     Проверяет наличие обновлений и выполняет их.
     """
     print("Проверяю обновления...")
+    run_command(f"git checkout {BRANCH}", cwd=BASE_DIR)
     run_command("git fetch origin", cwd=BASE_DIR)
     try:
         current_branch = run_command("git rev-parse --abbrev-ref HEAD", cwd=BASE_DIR)
