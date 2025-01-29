@@ -94,6 +94,15 @@ def logical_workflow():
                 title
             ):
                 break
+            
+            # Проверка дефолтного состояния
+            if not app.tools.safe_execute(
+                app.tools.chek_default_satate,
+                "Стартовая точка - ДА",
+                "Стартовая точка - НЕТ",
+                title
+            ):
+                break
 
             # Рандомное действие на главном экране
             if not app.tools.safe_execute(

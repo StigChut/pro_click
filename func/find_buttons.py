@@ -9,11 +9,8 @@ from my_logger import logger, BASE_DIR
 from func.image_screen import find_and_interact
 
 
-# Поиск конпки "запланировать поставку"
-def find_button_bt1(title: str):
-    # Относительный путь к изображению
-    image_path = os.path.join(BASE_DIR, 'image_button', 'bt1.png')
-    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+def find_button_bt1(image_path, title: str):
+    """ Поиск первой кнопки в итерации """
 
     try:
         # Ищем первую кнопку "bt1"
@@ -23,35 +20,49 @@ def find_button_bt1(title: str):
         else:
             logger.debug("Кнопка 'Запланировать поставку' не нажата")
             return False
+        
     except Exception as e:
         logger.exception(f"Ошибка нажатия bt1: {e}")
         raise
 
 
 # Поиск кнопки "Выбрать"
-def find_button_bt2(title: str):
+def find_button_bt2(title: str, mode=["booking", "transfer"]):
+    """
+    Функция для поиска кнопки "Выбрать"
+    param: mode - booking - бронирование, transfer - перенос
+    """
+
     # Относительный путь к изображению
     image_path = os.path.join(BASE_DIR, 'image_button', 'bt2.png')
     assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
 
-    # Глубина прокрутки
-    depth_scroll = random.randint(-700, -400)
-    # Счетчики цикла 
+    if mode == "booking":
+        # Глубина прокрутки
+        depth_scroll = random.randint(-700, -400)
+        # Счетчики цикла 
+        max_scroll = random.randint(2, 4)
+    elif mode == "transfer":
+        # Глубина прокрутки
+        depth_scroll = -900
+        # Счетчики цикла 
+        max_scroll = 1
+
     scroll_iter = 0
-    max_scroll = random.randint(2, 8)
 
     try:
         # Основной цикл
         while scroll_iter < max_scroll:
+            
+            pyautogui.scroll(depth_scroll)
+            time.sleep(0.4)
 
             # Ищем на экране кнопку Выбрать
             if find_and_interact(image_path, title, self_click=True):
                 logger.debug(f"Нажата кнопка 'Выбрать'")
                 return True
             
-            # Если не нашли, скроллим экран вниз
-            pyautogui.scroll(depth_scroll)
-            time.sleep(0.15)
+            time.sleep(0.4)
             scroll_iter += 1
             logger.info(f"Прокрутка экрана: ({scroll_iter}/{max_scroll} попыток)")
         
@@ -67,11 +78,8 @@ def find_button_bt2(title: str):
 
 
 
-# Поиск кнопки "Запланировать"
-def find_button_bt3(title: str):
-    # Относительный путь к изображению
-    image_path = os.path.join(BASE_DIR, 'image_button', 'bt3.png')
-    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+def find_button_bt3(image_path, title: str):
+    """ Поиск третьей кнопки в итерации """
     
     try:
         # Ищем третью кнопку bt3
@@ -84,4 +92,3 @@ def find_button_bt3(title: str):
     except Exception as e:
         logger.exception(f"Ошибка нажатия bt3: {e}")
         raise
-

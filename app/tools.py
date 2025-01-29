@@ -14,10 +14,10 @@ import pygetwindow
 import random
 import time
 import sys
+import os
 
-from my_logger import logger
+from my_logger import logger, BASE_DIR
 from pynput import mouse
-
 
 # Вызов и логгирование
 def safe_execute(action, success_message, failure_message, *args, **kwargs):
@@ -51,28 +51,6 @@ def wait_random_delay(min_delay=0.1, max_delay=0.4):
     time.sleep(delay)
 
 
-# Выбор магазина и склада
-def save_data_slot():
-    try:
-        magazine = input("Название магазина в котором ищем слот: ").strip()
-        skald = input("Название склада для которого ищем слот: ").strip()
-
-        result = f"{skald}, в {magazine}"
-
-        def on_click(x, y, button, pressed):
-            if pressed:
-                logger.debug(f'Клик мышкой в точке: {x}, {y}, {button}')
-                return False
-
-        with mouse.Listener(on_click=on_click) as listener:
-            listener.join()
-        
-        return result
-    
-    except Exception as e:
-        logger.exception(f"Ошибка: {e}")
-
-
 # Проверка активного окна
 def chek_window(title):
     try:
@@ -93,8 +71,11 @@ def chek_window(title):
         return False
 
 
-# Проверка состояния дефолтноего положения
-def chek_default_satate(title):
+# Проверка дефолтноего положения при Бронировании
+def booking_default_satate(title):
+    # Относительный путь к изображению
+    image_path = os.path.join(BASE_DIR, 'image_button', 'default_state.png')
+    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
     
     max_iter = 2
     coint_iter = 0
@@ -102,7 +83,34 @@ def chek_default_satate(title):
     try:
         while coint_iter < max_iter:
 
-            if func.defalt_state.default_state(title) == False:
+            if func.defalt_state.default_state(image_path, title) == False:
+                coint_iter += 1
+                continue
+            else:
+                return True
+
+        logger.debug("Не смогли найти дефолтное состояние за 2 перезагрузки")
+        print("Не найдена стратовая точка")
+        return False
+    
+    except Exception as e:
+        logger.exception(f"Ошибка: {e}")
+        return False
+    
+
+# Проверка дефолтного положение при Переносе
+def transfer_default_state(title):
+    # Относительный путь к изображению
+    image_path = os.path.join(BASE_DIR, 'image_button', 'transfer_default_state.png')
+    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+    
+    max_iter = 2
+    coint_iter = 0
+
+    try:
+        while coint_iter < max_iter:
+
+            if func.defalt_state.default_state(image_path, title) == False:
                 coint_iter += 1
                 continue
             else:
@@ -151,10 +159,20 @@ def random_second_screen(title):
 
 
 # Нажитие первой кнопки и перемещение курсора вниз
-def click_bt1_moveDown(title):
+def click_bt1_moveDown(title, mode=['booking', 'transfer']):
+    
+    if mode == 'booking':
+        # Относительный путь к изображению
+        image_path = os.path.join(BASE_DIR, 'image_button', 'bt1.png')
+        assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+    elif mode == 'transfer':
+        # Относительный путь к изображению
+        image_path = os.path.join(BASE_DIR, 'image_button', 'transfer_bt1.png')
+        assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+
     try:
         # Проверка первой кнопки
-        if func.find_buttons.find_button_bt1(title):
+        if func.find_buttons.find_button_bt1(image_path, title):
             time.sleep(0.1)
             # Перемещение курсора
             func.defalt_state.move_cur(title)
@@ -166,7 +184,7 @@ def click_bt1_moveDown(title):
         logger.exception(f"Ошибка модуля первой кнопки: {e}")
         return False
     
-    return True         
+    return True
 
 
 # Безопастный ввод данных
@@ -181,9 +199,20 @@ def safe_input():
         except EOFError:
             continue
         if not user_input:
-            print("Полен не может быть пустым")
+            print("Поле не может быть пустым")
             logger.debug("Пустой ввод")
         else:
             break
 
     return user_input
+
+def check_click():
+
+    # Функция обработки щелчка мышкой
+    def on_click(x, y, button, pressed):
+        if pressed:
+            logger.debug(f'Клик мышкой в точке: {x}, {y}, {button}')
+            return False  # Остановить слушателя после первого щелчка
+        
+    with mouse.Listener(on_click=on_click) as listener:
+        listener.join()

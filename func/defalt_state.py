@@ -1,8 +1,3 @@
-"""
-    Модуль поиска дефолтного состояния
-    и стандартного положения курсора после bt1
-"""
-
 import pyautogui
 import time
 import os
@@ -11,12 +6,9 @@ from my_logger import logger, BASE_DIR
 from func.image_screen import find_and_interact
 
 
-# Поиск стартового полежения на экране для того чтобы начать выполение скрипта
-def default_state(title: str):
-    # Относительный путь к изображению
-    image_path = os.path.join(BASE_DIR, 'image_button', 'default_state.png')
-    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
-
+def default_state(image_path, title):
+    """ Поиск стартового положения для бронирования на экране для того чтобы начать выполение скрипта """
+    
     try:
         if find_and_interact(image_path, title):
             return True
@@ -30,8 +22,9 @@ def default_state(title: str):
         raise
 
 
-# TODO: Перемещение курсора в область image_for_moveCur после bt1
 def move_cur(title):
+    """ Перемещение курсора в область image_for_moveCur после bt1 """
+
     try:
         # Относительный путь к изображению
         image_path = os.path.join(BASE_DIR, 'image_button', 'image_for_moveCur.png')
@@ -58,11 +51,11 @@ def move_cur(title):
         pyautogui.moveTo(center_x, center_y, duration=0.1)
         logger.debug(f"Курсор перемещен в координаты {center_x}, {center_y}")
         return True
-
+    
     except pyautogui.ImageNotFoundException:
         logger.debug(f"Ошибка поиска изображения. Пропуск исключения")
         return False
-    
+
     except Exception as e:
         logger.exception(f"Ошибка перемещения курсора после bt1: {e}")
         return False

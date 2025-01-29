@@ -29,10 +29,8 @@ def red_alert(title: str):
 
 
 # Поиск алерта ошибки диапазона дат, после нажатия кнопки "Выбрать"
-def red_alert_time_date(title: str):
+def red_alert_time_date(image_path, title: str):
     # Относительный путь к изображению
-    image_path = os.path.join(BASE_DIR, 'image_button', 'red_alert_time.png')
-    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
     close_alert_path = os.path.join(BASE_DIR, 'image_button', 'close_red_alert.png')
     assert os.path.exists(close_alert_path), f"Файл не найден по указанному пути: {close_alert_path}"
 
@@ -42,7 +40,7 @@ def red_alert_time_date(title: str):
             logger.debug("Алерт обнаружен и закрыт")
             return True
         else:
-            logger.debug("Алерт не обниружен или не закрыт")
+            logger.debug("Алерт не обнаружен или не закрыт")
             return False
 
     except Exception as e:

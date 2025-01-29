@@ -3,9 +3,9 @@ import json
 import time
 import os
 
+from app.tools import safe_input
 from pynput import mouse
 from my_logger import logger
-from app.tools import safe_input
 
 FILE = 'temp.json'
 
@@ -29,13 +29,13 @@ def save_file(data):
         with open(FILE, 'w', encoding='utf-8') as f:
             json.dump(current_data, f, ensure_ascii=False, indent=4)
         logger.debug("Данные сохранены в файл")
-    
+        return True
     except json.JSONDecodeError as e:
         logger.exception(f"Ошибка декодирования JSON в файле {FILE}: {e}")
-        
+        return False
     except Exception as e:
         logger.exception(f"Ошибка чтения активного окна: {e}")
-
+        return False
 
 # Чтение файла с сохраненным активным окном
 def read_file(key):
@@ -91,12 +91,11 @@ def active_window():
             print("Активное окно отсутствует")
             logger.debug("Активное окно отсутствует")
             return
-        
         print(f"Активное окно: {window.title}")
         print("Eсли верно нажми Y, если нет N: ")
         # Пользовательский ввод
         user_input = safe_input().upper().strip()
-
+        
         # Условия ввода
         if user_input == "Y":
                 # Делаем словарь
