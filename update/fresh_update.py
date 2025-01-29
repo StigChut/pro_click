@@ -58,7 +58,7 @@ def set_git_config():
         print("Устанавливаю email пользователя Git...")
         run_command('git config user.email "auto-updater@example.com"', cwd=BASE_DIR)
 
-def check_and_update():
+def check_fresh_update():
     """
     Проверяет наличие обновлений и выполняет их.
     """
@@ -87,7 +87,7 @@ if os.path.exists(os.path.join(BASE_DIR, ".git")):
     # Устанавливаем конфигурацию Git
     set_git_config()
     # Проверяем обновления и обновляем
-    check_and_update()
+    check_fresh_update()
 else:
     print("Ошибка: репозиторий не инициализирован.")
     sys.exit(1)

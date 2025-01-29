@@ -1,32 +1,24 @@
-import subprocess
 import os
 
 from my_logger import logger, BASE_DIR
+from update.fresh_update import check_fresh_update
+from update.stable_update import check_stable_update
 
 def run_fresh_update():
-    fresh = os.path.join(BASE_DIR, 'update', 'run_fresh.bat')
-    assert os.path.exists(fresh), f"Файл не найден по указанному пути {fresh}"
-    
+
     try:
-        subprocess.run(fresh, check=True)
+        check_fresh_update()
         print("Обновление завершено")
-    except subprocess.CalledProcessError as e:
-        logger.exception(f"Ошибка при выполнении файла {e}")
-        print(f"Error: {e}")
     except Exception as e:
         logger.exception(f"Error: {e}")
+        print(f"Error: {e}")
 
 
 def run_stable_update():
-    stable = os.path.join(BASE_DIR, 'update', 'run_stable.bat')
-    assert os.path.exists(stable), f"Файл не найден по указанному пути {stable}"
-    
+
     try:
-        subprocess.run(stable, check=True)
+        check_stable_update()
         print("Обновление завершено")
-    except subprocess.CalledProcessError as e:
-        logger.exception(f"Ошибка при выполнении файла {e}")
-        print(f"Error: {e}")
     except Exception as e:
         logger.exception(f"Error: {e}")
-
+        print(f"Error: {e}")
