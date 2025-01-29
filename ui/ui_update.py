@@ -18,11 +18,11 @@ def run_fresh_update():
 
 
 def run_stable_update():
-    fresh = os.path.join(BASE_DIR, 'update', 'run_stable.bat')
-    assert os.path.exists(fresh), f"Файл не найден по указанному пути {fresh}"
+    stable = os.path.join(BASE_DIR, 'update', 'run_stable.bat')
+    assert os.path.exists(stable), f"Файл не найден по указанному пути {stable}"
     
     try:
-        subprocess.run(fresh, check=True)
+        subprocess.run(stable, check=True)
         print("Обновление завершено")
     except subprocess.CalledProcessError as e:
         logger.exception(f"Ошибка при выполнении файла {e}")

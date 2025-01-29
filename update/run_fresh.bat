@@ -1,7 +1,10 @@
 @echo off
-
-REM Запускаем Python-скрипт
+echo Запуск fresh_update.py...
 python update\fresh_update.py
-
-REM Пауза, чтобы окно не закрылось автоматически
-pause
+if %errorlevel% neq 0 (
+    echo Ошибка при выполнении fresh_update.py. Код ошибки: %errorlevel%
+    pause
+    exit /b %errorlevel%
+)
+echo Обновление завершено успешно.
+exit /b 0
