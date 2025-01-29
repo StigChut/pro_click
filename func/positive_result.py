@@ -8,11 +8,8 @@ from my_logger import logger, BASE_DIR
 from func.image_screen import find_and_interact
 
 
-# Поиск всплывашки после нажатия кнопки "Запланировать"
-def green_alert(title: str):
-    # Относительный путь к изображению
-    image_path = os.path.join(BASE_DIR, 'image_button', 'green_alert.png')
-    assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
+def green_alert(image_path, title: str):
+    """ Поиск алерта после нажатия кнопки "Запланировать" или "Переместить" """
     
     try:
         # Проверяем алерт

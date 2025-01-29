@@ -3,6 +3,7 @@ temp.json
 local_main.py
 local_run.bat
 .vscode/
+test.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

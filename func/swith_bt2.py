@@ -16,8 +16,12 @@ from func.negative_result import red_alert_time_date
 from func.find_buttons import find_button_bt3
 
 
-# Повторный поиск кнопки "Выбрать", ниже текущей
-def swith_bt2_down(title: str):
+def swith_bt2_down(image_path_bt3, image_path_alert, title: str):
+    """
+    Повторный поиск кнопки "Выбрать", ниже текущей
+    param: image_path_bt3 - для функции find_bt3 - передать "Запланировать" или "Перенести"
+    param: image_path_alert - алерт после которого ищем кнопку выбрать ниже
+    """
     # Относительный путь к изображению
     image_path_bt2 = os.path.join(BASE_DIR, 'image_button', 'bt2.png')
     assert os.path.exists(image_path_bt2), f"Файл не найден по указанному пути: {image_path_bt2}"
@@ -25,7 +29,7 @@ def swith_bt2_down(title: str):
     assert os.path.exists(image_path_undo), f"Файл не найден по указанному пути: {image_path_undo}"
 
     # Глубина прокрутки
-    depth_scroll = random.randint(-700, -400)
+    depth_scroll = random.randint(-500, -300)
     # Счетчики цикла 
     scroll_iter = 0
     # Выбираем максимальное количество прокруток
@@ -39,6 +43,7 @@ def swith_bt2_down(title: str):
         # Основной цикл
         while scroll_iter < max_scroll:
             try:
+                time.sleep(0.25)
                 button_undo = pyautogui.locateOnScreen(image_path_undo,
                                                       confidence=0.8,
                                                       region=(0, current_y, screen_region.width, screen_region.height - current_y)
@@ -50,34 +55,29 @@ def swith_bt2_down(title: str):
                     # Обновляем минимальный Y для поиска (теперь ищем ниже на экране)
                     current_y = button_undo.top + button_undo.height
                     logger.debug(f"Текущая координата {current_y}")
-                # Ищем на экране кнопку "Выбрать", но только в области ниже `current_y`
-                button_two = pyautogui.locateOnScreen(image_path_bt2,
-                                                      confidence=0.8,
-                                                      region=(0, current_y, screen_region.width, screen_region.height - current_y)
-                                                      )
                 
-                # Если нашли "Выбрать"
+                # Прокрутка
+                pyautogui.scroll(depth_scroll)
+                logger.info(f"Попытка прокрутки экрана: ({scroll_iter}/{max_scroll})")
+                scroll_iter += 1
+                time.sleep(0.5)
+
+                button_two = pyautogui.locateOnScreen(image_path_bt2,
+                                                    confidence=0.8,
+                                                    region=(0, current_y, screen_region.width, screen_region.height - current_y))
+                
                 if button_two is not None and rand_clik(button_two):
                     logger.debug(f"Нажата кнопка 'Выбрать' в области: {button_two}")
-                    
-                    # Обновляем минимальный Y для поиска (теперь ищем ниже на экране)
-                    current_y = button_two.top + button_two.height
-                    logger.debug(f"Текущая координата {current_y}")
 
-                    # Нажимаем "Запланировать"
-                    if find_button_bt3(title) == True and red_alert_time_date(title) == False:
+                    if find_button_bt3(image_path_bt3, title) == True and red_alert_time_date(image_path_alert, title) == False:
                         time.sleep(3)
                         break
-                            
-            except pyautogui.ImageNotFoundException as e:
-                logger.debug(f"Не нашли изображение {e}")
-                pass
+                    else:
+                        continue
 
-            # Если скролл всё-таки нужен
-            pyautogui.scroll(depth_scroll)
-            time.sleep(0.15)
-            scroll_iter += 1
-            logger.info(f"Прокрутка экрана: ({scroll_iter}/{max_scroll} попыток)")
+            except pyautogui.ImageNotFoundException as e:
+                logger.debug("Не найдено изображение")
+                pass
 
         # Если не нашли за скроллы - выходим
         if scroll_iter >= max_scroll:
