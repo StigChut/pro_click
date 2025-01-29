@@ -102,8 +102,24 @@ def check_and_update():
         print("Обновлений нет. Программа актуальна.")
 
 
+def set_git_config():
+    """
+    Устанавливает имя и email пользователя для Git, если они не установлены.
+    """
+    # Проверяем, установлены ли уже имя и email
+    user_name = run_command("git config user.name", cwd=BASE_DIR)
+    user_email = run_command("git config user.email", cwd=BASE_DIR)
+    
+    if not user_name:
+        run_command('git config user.name "Auto Updater"', cwd=BASE_DIR)
+    if not user_email:
+        run_command('git config user.email "auto-updater@example.com"', cwd=BASE_DIR)
+
 # Инициализируем репозиторий, если его нет
 init_git_repo()
+
+# Устанавливаем конфигурацию Git
+set_git_config()
 
 # Проверяем обновления и обновляем
 check_and_update()
