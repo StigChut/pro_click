@@ -41,27 +41,28 @@ def find_button_bt2(title: str, mode=["booking", "transfer"]):
         # Глубина прокрутки
         depth_scroll = random.randint(-700, -400)
         # Счетчики цикла 
-        max_scroll = random.randint(2, 8)
+        max_scroll = random.randint(2, 4)
     elif mode == "transfer":
         # Глубина прокрутки
-        depth_scroll = -400
+        depth_scroll = -900
         # Счетчики цикла 
-        max_scroll = 2
+        max_scroll = 1
 
     scroll_iter = 0
 
     try:
         # Основной цикл
         while scroll_iter < max_scroll:
+            
+            pyautogui.scroll(depth_scroll)
+            time.sleep(0.4)
 
             # Ищем на экране кнопку Выбрать
             if find_and_interact(image_path, title, self_click=True):
                 logger.debug(f"Нажата кнопка 'Выбрать'")
                 return True
             
-            # Если не нашли, скроллим экран вниз
-            pyautogui.scroll(depth_scroll)
-            time.sleep(0.15)
+            time.sleep(0.4)
             scroll_iter += 1
             logger.info(f"Прокрутка экрана: ({scroll_iter}/{max_scroll} попыток)")
         
@@ -91,4 +92,3 @@ def find_button_bt3(image_path, title: str):
     except Exception as e:
         logger.exception(f"Ошибка нажатия bt3: {e}")
         raise
-

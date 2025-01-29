@@ -48,7 +48,7 @@ def handle_user_input(entry_field, window):
         popup_error("Не удалось сохранить имя пользователя. Попробуйте ещё раз.")
 
 
-def open_user_input_window():
+def open_user_input_window(root):
     """
     Открывает отдельное окно для ввода имени пользователя
     """
@@ -56,6 +56,9 @@ def open_user_input_window():
     input_window = tk.Toplevel()
     input_window.title("Ввод Telegram Username")
     input_window.geometry("350x200")
+    input_window.transient(root)
+    input_window.grab_set()
+
 
     # Добавляем метку-инструкцию
     label = tk.Label(input_window, text="Введите свой username в Telegram\n(Пример: https://t.me/yesimfine_thanks)", wraplength=300, justify="center")
@@ -68,3 +71,5 @@ def open_user_input_window():
     # Кнопка для сохранения
     btn_save = tk.Button(input_window, text="Сохранить", command=lambda: handle_user_input(entry, input_window))
     btn_save.pack(pady=10)
+
+    input_window.wait_window(input_window)

@@ -19,7 +19,6 @@ import os
 from my_logger import logger, BASE_DIR
 from pynput import mouse
 
-
 # Вызов и логгирование
 def safe_execute(action, success_message, failure_message, *args, **kwargs):
     """
@@ -50,35 +49,6 @@ def safe_execute(action, success_message, failure_message, *args, **kwargs):
 def wait_random_delay(min_delay=0.1, max_delay=0.4):
     delay = random.uniform(min_delay, max_delay)
     time.sleep(delay)
-
-
-# Выбор магазина и склада
-def save_data_slot(mode = ['booking', 'transfer']):
-    try:
-        if mode == 'booking':
-            magazine = input("Название магазина в котором ищем слот: ").strip()
-            skald = input("Название склада для которого ищем слот: ").strip()
-        elif mode == 'transfer':
-            magazine = input("Название магазина в котором переносим слот: ").strip()
-            skald = input("Название склада для которого переносим слот: ").strip()
-        else:
-            logger.debug("Не определен 'mode' для фукции")
-            return None
-
-        result = f"{skald}, в {magazine}"
-
-        def on_click(x, y, button, pressed):
-            if pressed:
-                logger.debug(f'Клик мышкой в точке: {x}, {y}, {button}')
-                return False
-
-        with mouse.Listener(on_click=on_click) as listener:
-            listener.join()
-        
-        return result
-    
-    except Exception as e:
-        logger.exception(f"Ошибка: {e}")
 
 
 # Проверка активного окна
@@ -229,9 +199,20 @@ def safe_input():
         except EOFError:
             continue
         if not user_input:
-            print("Полен не может быть пустым")
+            print("Поле не может быть пустым")
             logger.debug("Пустой ввод")
         else:
             break
 
     return user_input
+
+def check_click():
+
+    # Функция обработки щелчка мышкой
+    def on_click(x, y, button, pressed):
+        if pressed:
+            logger.debug(f'Клик мышкой в точке: {x}, {y}, {button}')
+            return False  # Остановить слушателя после первого щелчка
+        
+    with mouse.Listener(on_click=on_click) as listener:
+        listener.join()

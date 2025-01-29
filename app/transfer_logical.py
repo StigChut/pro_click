@@ -72,12 +72,18 @@ def logical_workflow_transfer():
         "username"
     )
     
-    # Определяем название магазина и склада, в котором будем искать
+    # Чтение склада\магазина из файла
     magazine_and_sklad = app.tools.safe_execute(
-        app.tools.save_data_slot,
-        "Описание итерации - ДА",
-        "Описание итерации - НЕТ",
-        mode = 'transfer'
+        func.active_window.read_file,
+        "Чтение из файла активного окна - ДА",
+        "Чтение из файла активного окна - НЕТ",
+        "tg_lable"
+    )
+
+    app.tools.safe_execute(
+        app.tools.check_click,
+        "Ожидание клика - ДА",
+        "Ожидание клика - НЕТ"
     )
 
     try:
