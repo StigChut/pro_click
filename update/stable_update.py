@@ -58,7 +58,7 @@ def set_git_config():
         print("Устанавливаю email пользователя Git...")
         run_command('git config user.email "auto-updater@example.com"', cwd=BASE_DIR)
 
-def check_fresh_update():
+def check_stable_update():
     """
     Проверяет наличие обновлений и выполняет их.
     """
