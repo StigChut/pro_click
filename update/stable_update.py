@@ -58,17 +58,23 @@ def set_git_config():
         print("Устанавливаю email пользователя Git...")
         run_command('git config user.email "auto-updater@example.com"', cwd=BASE_DIR)
 
-def check_stable_update():
+def check_fresh_update():
     """
     Проверяет наличие обновлений и выполняет их.
     """
     print("Проверяю обновления...")
+    # Сброс всех изменений до последнего коммита
+    run_command("git reset --hard", cwd=BASE_DIR, ignore_errors=True)
+    # Очистка неотслеживаемых файлов
+    run_command("git clean -fd", cwd=BASE_DIR, ignore_errors=True)
+    # Переключение на ветку
     run_command(f"git checkout {BRANCH}", cwd=BASE_DIR)
-    run_command("git fetch origin", cwd=BASE_DIR)
+
     try:
         current_branch = run_command("git rev-parse --abbrev-ref HEAD", cwd=BASE_DIR)
         print(f"Текущая ветка: {current_branch}")
-        run_command(f"git pull origin {current_branch}", cwd=BASE_DIR)
+        run_command("git fetch origin", cwd=BASE_DIR)
+        run_command(f"git pull origin {BRANCH}", cwd=BASE_DIR)
     except SystemExit:
         print("Не удалось определить текущую ветку. Попробуем переключиться на ветку по умолчанию.")
         # Полная очистка рабочего дерева
