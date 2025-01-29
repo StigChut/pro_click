@@ -1,12 +1,15 @@
 import subprocess
 import os
 import sys
+import logging
 
-from my_logger import logger
+# Настройка логирования
+logging.basicConfig(filename='update.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger()
 
 # **Конфигурация**
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # Папка, где лежит update.py
-BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))  # Путь к корню репозитория
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))  # Папка, где лежит ui_update.py
+BASE_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "..", ".."))  # Путь к корню репозитория
 REPO_URL = "https://github.com/StigChut/pro_click.git"   # URL публичного репозитория
 BRANCH = "stable"  # Ваша ветка: main, master или другая
 
