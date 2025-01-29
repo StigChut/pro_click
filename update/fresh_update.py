@@ -30,13 +30,15 @@ def init_git_repo():
         run_command("git init", cwd=BASE_DIR)  # Инициализация
         run_command(f"git remote add origin {REPO_URL}", cwd=BASE_DIR)  # Добавление удалённого репозитория
         run_command("git fetch origin", cwd=BASE_DIR)  # Скачивание содержимого
-        try:
-            # Попробуем переключить на указанную ветку
+
+        # Проверяем, существует ли ветка BRANCH в удаленном репозитории
+        branches = run_command("git branch -r", cwd=BASE_DIR)
+        if f"origin/{BRANCH}" in branches:
+            # Переключаемся на существующую ветку
             run_command(f"git checkout -b {BRANCH} origin/{BRANCH}", cwd=BASE_DIR)
-        except SystemExit:
-            # Если ветка не существует (например, пустой репозиторий)
-            print(f"Ветка {BRANCH} не найдена. Клонирую весь репозиторий...")
-            run_command(f"git pull origin {BRANCH}", cwd=BASE_DIR)  # Клонируем содержимое ветки
+        else:
+            # Создаем новую ветку, если она не существует в удаленном репозитории
+            run_command(f"git checkout -b {BRANCH}", cwd=BASE_DIR)
         print("Репозиторий успешно инициализирован.")
     else:
         print("Репозиторий уже инициализирован.")
@@ -62,9 +64,14 @@ def check_and_update():
     """
     print("Проверяю обновления...")
     run_command("git fetch origin", cwd=BASE_DIR)
-    current_branch = run_command("git rev-parse --abbrev-ref HEAD", cwd=BASE_DIR)
-    print(f"Текущая ветка: {current_branch}")
-    run_command(f"git pull origin {current_branch}", cwd=BASE_DIR)
+    try:
+        current_branch = run_command("git rev-parse --abbrev-ref HEAD", cwd=BASE_DIR)
+        print(f"Текущая ветка: {current_branch}")
+        run_command(f"git pull origin {current_branch}", cwd=BASE_DIR)
+    except SystemExit:
+        print("Не удалось определить текущую ветку. Попробуем переключиться на ветку по умолчанию.")
+        run_command(f"git checkout {BRANCH}", cwd=BASE_DIR)
+        run_command(f"git pull origin {BRANCH}", cwd=BASE_DIR)
 
 # Инициализируем репозиторий, если его нет
 init_git_repo()
