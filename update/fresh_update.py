@@ -70,12 +70,12 @@ def check_and_update():
         run_command(f"git pull origin {current_branch}", cwd=BASE_DIR)
     except SystemExit:
         print("Не удалось определить текущую ветку. Попробуем переключиться на ветку по умолчанию.")
-        # Сохраняем текущие изменения в stash
-        run_command("git stash", cwd=BASE_DIR)
+        # Полная очистка рабочего дерева
+        run_command("git clean -fd", cwd=BASE_DIR, ignore_errors=True)
+        # Сброс всех изменений до последнего коммита
+        run_command("git reset --hard", cwd=BASE_DIR, ignore_errors=True)
         # Переключаемся на ветку по умолчанию
         run_command(f"git checkout {BRANCH}", cwd=BASE_DIR)
-        # Применяем сохраненные изменения из stash
-        run_command("git stash pop", cwd=BASE_DIR, ignore_errors=True)
         # Проверяем обновления
         run_command(f"git pull origin {BRANCH}", cwd=BASE_DIR)
 
