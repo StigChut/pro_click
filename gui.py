@@ -20,6 +20,10 @@ def safe_command(command):
             print(f"Ошибка: {e}")
     return wrapper
 
+def create_separator(root, pady=10):
+    separator = tk.Frame(root, height=2, bd=1, relief=tk.SUNKEN, bg="black")
+    separator.pack(fill=tk.X, pady=pady)
+
 def run_gui():
     # Главное окно приложения
     root = tk.Tk()
@@ -32,9 +36,15 @@ def run_gui():
     # Создание кнопок
     create_button(button_frame, "Запустить бронирование", safe_command(logical_workflow_booking))
     create_button(button_frame, "Запустить перенос", safe_command(logical_workflow_transfer))
+
+    create_separator(button_frame)
+
     create_button(button_frame, "Записать слот, магазин", lambda:open_user_input_slot(root))
     create_button(button_frame, "Выбрать активное окно", lambda: choose_active_window(root))
     create_button(button_frame, "Привязать Телеграмм", lambda: open_user_input_window(root))
+
+    create_separator(button_frame)
+
     create_button(button_frame, "stable update", safe_command(run_stable_update))
     create_button(button_frame, "fresh update", safe_command(run_fresh_update))
     
