@@ -20,18 +20,18 @@ def safe_command(command):
             print(f"Ошибка: {e}")
     return wrapper
 
-def create_separator(root, pady=10):
-    separator = tk.Frame(root, height=2, bd=1, relief=tk.SUNKEN, bg="black")
+def create_separator(root, pady=5):
+    separator = tk.Frame(root, height=1, width=5, bd=1, relief=tk.SUNKEN, bg="black")
     separator.pack(fill=tk.X, pady=pady)
 
 def run_gui():
     # Главное окно приложения
     root = tk.Tk()
-    root.title("Главное окно")
-    root.geometry("300x500")
+    root.title("proClick")
+    root.geometry("300x520")
     
     button_frame = tk.Frame(root)
-    button_frame.pack(pady=10)
+    button_frame.pack(pady=5)
     
     # Создание кнопок
     create_button(button_frame, "Запустить бронирование", safe_command(logical_workflow_booking))
