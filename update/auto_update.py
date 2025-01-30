@@ -65,6 +65,8 @@ def check_updates(branch):
 def perform_stable_update():
     init_git_repo("stable")
     if os.path.exists(os.path.join(BASE_DIR, ".git")):
+        current_branch = run_command("git rev-parse --abbrev-ref HEAD", cwd=BASE_DIR)
+        print(f"Текущая ветка: {current_branch}")
         set_git_config()
         check_updates("stable")
     else:
@@ -74,6 +76,8 @@ def perform_stable_update():
 def perform_fresh_update():
     init_git_repo("debug")
     if os.path.exists(os.path.join(BASE_DIR, ".git")):
+        current_branch = run_command("git rev-parse --abbrev-ref HEAD", cwd=BASE_DIR)
+        print(f"Текущая ветка: {current_branch}")
         set_git_config()
         check_updates("debug")
     else:
