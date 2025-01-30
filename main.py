@@ -6,7 +6,7 @@ from update.auto_update import perform_stable_update
 def main():
     try:
         perform_stable_update()
-        print("Добро пожаловать. Для начала работы перезапустите программу.")
+        print("Добро пожаловать...")
         
     except Exception as e:
         logger.error(f"Ошибка в главной функции: {e}")
