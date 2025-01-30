@@ -87,14 +87,11 @@ def check_fresh_update():
         run_command(f"git pull origin {BRANCH}", cwd=BASE_DIR)
 
 # Инициализируем репозиторий, если его нет
-init_git_repo()
-
-# Проверяем, что репозиторий инициализирован
-if os.path.exists(os.path.join(BASE_DIR, ".git")):
-    # Устанавливаем конфигурацию Git
-    set_git_config()
-    # Проверяем обновления и обновляем
-    check_fresh_update()
-else:
-    print("Ошибка: репозиторий не инициализирован.")
-    sys.exit(1)
+def perform_fresh_update():
+    init_git_repo()
+    if os.path.exists(os.path.join(BASE_DIR, ".git")):
+        set_git_config()
+        check_fresh_update()
+    else:
+        print("Ошибка: репозиторий не инициализирован.")
+        sys.exit(1)
