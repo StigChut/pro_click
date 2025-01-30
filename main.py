@@ -1,4 +1,5 @@
 from my_logger import logger
+from gui import run_gui
 from update.auto_update import perform_stable_update
 
 
@@ -13,6 +14,7 @@ def main():
 if __name__ == '__main__':
     try:
         main()
+        run_gui()
     except KeyboardInterrupt:
         print("Остановка скрипта...")
         
