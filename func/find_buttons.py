@@ -55,21 +55,21 @@ def find_button_bt2(title: str, mode=["booking", "transfer"]):
         while scroll_iter < max_scroll:
             
             pyautogui.scroll(depth_scroll)
-            time.sleep(0.4)
+            time.sleep(0.8)
 
             # Ищем на экране кнопку Выбрать
             if find_and_interact(image_path, title, self_click=True):
                 logger.debug(f"Нажата кнопка 'Выбрать'")
                 return True
             
-            time.sleep(0.4)
+            time.sleep(0.5)
             scroll_iter += 1
             logger.info(f"Прокрутка экрана: ({scroll_iter}/{max_scroll} попыток)")
         
         # Если не нашли за скроллы выходим
         if scroll_iter >= max_scroll:
             pyautogui.press('esc')
-            time.sleep(1)
+            time.sleep(3)
             logger.debug("Кнопка 'Выбрать не найдена, нажат ESC'")
             return False
         
