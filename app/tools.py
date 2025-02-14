@@ -104,7 +104,7 @@ def transfer_default_state(title):
     image_path = os.path.join(BASE_DIR, 'image_button', 'transfer_default_state.png')
     assert os.path.exists(image_path), f"Файл не найден по указанному пути: {image_path}"
     
-    max_iter = 2
+    max_iter = 3
     coint_iter = 0
 
     try:

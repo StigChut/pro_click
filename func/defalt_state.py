@@ -14,7 +14,7 @@ def default_state(image_path, title):
             return True
         else:
             pyautogui.press('f5')
-            time.sleep(10)
+            time.sleep(14)
             logger.debug("Не найдено дефолтное состояние скрипта. Выполнена перезагрузка страницы")
             return False
     except Exception as e:
