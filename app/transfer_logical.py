@@ -106,6 +106,9 @@ def logical_workflow_transfer():
             ):
                 break
             
+            # Задержка
+            app.tools.wait_random_delay()
+            
             # Проверка дефолтного состояния
             if not app.tools.safe_execute(
                 app.tools.transfer_default_state,

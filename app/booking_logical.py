@@ -105,6 +105,9 @@ def logical_workflow_booking():
                 title
             ):
                 break
+
+            # Задержка
+            app.tools.wait_random_delay()
             
             # Проверка дефолтного состояния
             if not app.tools.safe_execute(
