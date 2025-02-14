@@ -69,6 +69,7 @@ def find_button_bt2(title: str, mode=["booking", "transfer"]):
         # Если не нашли за скроллы выходим
         if scroll_iter >= max_scroll:
             pyautogui.press('esc')
+            time.sleep(1)
             logger.debug("Кнопка 'Выбрать не найдена, нажат ESC'")
             return False
         
