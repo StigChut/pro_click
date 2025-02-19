@@ -46,7 +46,7 @@ def safe_execute(action, success_message, failure_message, *args, **kwargs):
 
 
 # Задержки
-def wait_random_delay(min_delay=0.4, max_delay=1.4):
+def wait_random_delay(min_delay=0.8, max_delay=1.6):
     delay = random.uniform(min_delay, max_delay)
     time.sleep(delay)
 
