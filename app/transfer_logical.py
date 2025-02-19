@@ -96,7 +96,7 @@ def logical_workflow_transfer():
             
             # Задежка перед запуском
             app.tools.wait_random_delay()
-
+            """
             # Проверка соответсвия окон
             if not app.tools.safe_execute(
                 app.tools.chek_window,
@@ -126,7 +126,7 @@ def logical_workflow_transfer():
                 title
             ):
                 pass
-
+            """
             # Поиск кнопки "Перенести поставку"
             if not app.tools.safe_execute(
                 app.tools.click_bt1_moveDown,
