@@ -16,7 +16,7 @@ def find_and_interact(image_path, title, second_image_path=None, self_click=Fals
     """
 
     # Точность поиска
-    confidence_val=0.8
+    confidence_val=0.6
 
     try:
         # Ищем первое изображение
@@ -29,17 +29,18 @@ def find_and_interact(image_path, title, second_image_path=None, self_click=Fals
             if second_image_path:
                 region = (first_image.left, first_image.top, first_image.width, first_image.height)
                 second_image = pyautogui.locateOnScreen(second_image_path, region=region, confidence=confidence_val)
-                
-                if second_image:
-                    logger.debug(f"Изображение {second_image_path} найдено в области первого")
-                    # Кликаем на второе изображение
-                    rand_clik(second_image)
-                    logger.debug(f"Клик по второму изображению {second_image_path} выполнен")
-                    return True
-                else:
-                    logger.debug(f"Изображение {second_image_path} не найдено в области первого")
-                    return False
-                
+                try:
+                    if second_image:
+                        logger.debug(f"Изображение {second_image_path} найдено в области первого")
+                        # Кликаем на второе изображение
+                        rand_clik(second_image)
+                        logger.debug(f"Клик по второму изображению {second_image_path} выполнен")
+                        return True
+                    else:
+                        logger.debug(f"Изображение {second_image_path} не найдено в области первого")
+                        return False
+                except pyautogui.ImageNotFoundException:
+                    pass
             # Если включен флаг клика по первому изображению
             elif self_click:
                 rand_clik(first_image)
